@@ -1,0 +1,81 @@
+{% extends "base.html" %} {% block title %}User Dashboard{% endblock %} {% block content %}
+<html>
+
+<head>
+    <script src="https://kit.fontawesome.com/c9e61bb2b4.js" crossorigin="anonymous"></script>
+</head>
+
+
+<div class="wrapper">
+    <!-- Sidebar -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>My Dashboard</h3>
+        </div>
+        <ul class="list-unstyled components">
+            <p>My Dashboard</p>
+            <li class="active">
+                <a href="userdash">Dashboard</a>
+            </li>
+            <li>
+                <a href="appointment">Book appointment </a>
+            </li>
+            <li>
+                <a href="appointmenthistory">Appointment History</a>
+            </li>
+            <li>
+                <a href="profile">My Profile</a>
+            </li>
+        </ul>
+    </nav>
+
+
+</div>
+
+<!--------------------- End of sidebar and start of dashboard interface for user ---------->
+<br>
+<br>
+<br>
+<br>
+<style> h1 {text-align: center;} </style>
+<h1>My Dashboard</h1>
+<div class="content">
+    <div class="cards">
+        <div class="card">
+            <div class="box">
+                <h1> Profile</h1>
+            </div>
+            <div class="icon-case">
+                <a href="profile">
+                <img src="static/user.png" width="150" alt=""/>
+                    </a>
+            </div>
+        </div>
+
+        <div class="card" >
+            <div class="box">
+                <h1> Appointment </h1>
+            </div>
+            <div class="icon-case">
+                <a href="appointment">
+                <img src="static/appointment.png" width="150" alt=""/>
+                </a>
+            </div>
+        </div>
+
+         <div class="card" >
+            <div class="box">
+                <h1> History </h1>
+            </div>
+            <div class="icon-case">
+                <a href="history">
+                <img src="static/history.png" width="150" alt=""/>
+                </a>
+            </div>
+
+    </div>
+    <div class="content-2"> </div>
+</div>
+
+</div>
+{% endblock %}

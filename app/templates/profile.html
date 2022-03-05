@@ -1,0 +1,38 @@
+{% extends "base.html"  %}
+{% block title %}User Dashboard{% endblock %} {% block content %}
+<div class="wrapper">
+    <!-- Sidebar -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>My Dashboard</h3>
+        </div>
+        <ul class="list-unstyled components">
+            <p>My Dashboard</p>
+            <li class="active">
+                <a href="userdash">Dashboard</a>
+            </li>
+            <li>
+                <a href="appointment">Book appointment </a>
+            </li>
+            <li>
+                <a href="AppointmentHistory">Appointment History</a>
+            </li>
+            <li>
+                <a href="profile">My Profile</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<section>
+<div class="info">
+    <center>   <strong>Name:</strong> {{ current_user.name}} <br>                </center>
+    <center>   <strong>Email:</strong> {{ current_user.email}}<br>               </center>
+    <center>   <strong>Address:</strong> {{ current_user.address}}<br>           </center>
+    <center>   <strong>Birthday:</strong> {{ current_user.birthday}} <br>        </center>
+    <center>   <strong>Number:</strong> {{ current_user.number}} <br>            </center>
+    <center>   <strong>Date Joined:</strong> {{ current_user.date_created}}<br>  </center>
+
+    </div>
+    </section>
+{% endblock %}

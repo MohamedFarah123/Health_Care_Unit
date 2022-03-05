@@ -1,0 +1,30 @@
+{% extends "base.html" %} {% block title %}User Dashboard{% endblock %} {% block content %}
+<div class="mt-5 pt-5">
+<form method="POST" action="/drlogin">
+    <h3 align="center">Doctor Login</h3>
+    <div class="form-group">
+        <label for="email" > Email Address</label>
+        <input required
+                type="text"
+                id="email"
+                name="email"
+                class="form-control"
+                placeholder="Enter Email"/>
+
+        <label for="password"> Password </label>
+        <input required
+                type="password"
+                id="password"
+                name="password"
+                class="form-control"
+                placeholder="Enter Password" />
+        <br/>
+        <div align="center">
+            <button type="submit" class="btn btn-dark">Login</button>
+
+
+        </div>
+    </div>
+</form>
+</div>
+{% endblock %}

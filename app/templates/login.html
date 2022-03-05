@@ -1,0 +1,39 @@
+{% extends "base.html" %} {% block title %}Login{% endblock %} {% block content %}
+<div class="mt-5 pt-5">
+<form method="POST">
+    <h3 align="center">User Login</h3>
+    <div class="form-group">
+        <label for="email"> Email Address</label>
+        <input required
+                type="text"
+                id="email"
+                name="email"
+                class="form-control"
+                placeholder="Enter Email"/>
+
+        <label for="password"> Password Address</label>
+        <input required
+                type="password"
+                id="password"
+                name="password"
+                class="form-control"
+                placeholder="Enter Password" />
+        <br/>
+
+        <div align="center">
+            <button type="submit" class="btn btn-dark">Login</button>
+
+        </div>
+        <td align="center" colspan="2">
+            <a href="register">New User? Register Now!</a></td>
+
+        <div>
+            <tr>
+                <td align="center" colspan="2"><a href="passwordreset">Forgot Password?</a></td>
+            </tr>
+        </div>
+    </div>
+</form>
+</div>
+
+{% endblock %}
