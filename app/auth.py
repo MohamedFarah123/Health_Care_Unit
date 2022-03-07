@@ -121,8 +121,14 @@ def drdashboard():
     return render_template('drdashboard.html', name=current_user.email)
 
 
-@auth.route('drlogout')
+@auth.route('/drlogout')
 @login_required
 def drlogout():
     session.clear()
     return redirect('routes.drlogout')
+
+
+@auth.route('/apppointment')
+@login_required
+def appointment():
+    pass

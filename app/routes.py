@@ -41,6 +41,12 @@ def profile():
     return render_template('profile.html')
 
 
+@routes.route('appointment')
+@login_required
+def appointment():
+    return render_template('appointment.html', name=current_user.email)
+
+
 @routes.route('/drdashboard')
 @login_required
 def drdashboard():
@@ -53,4 +59,3 @@ def drlogout():
     logout_user()
     flash("You have been Logged out!")
     return redirect(url_for('routes.drlogout'))
-
