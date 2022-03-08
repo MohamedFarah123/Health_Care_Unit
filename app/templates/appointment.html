@@ -1,6 +1,5 @@
 {% extends "base.html" %} {% block title %}User Dashboard{% endblock %} {% block content %}
 <!--------------------- End of sidebar and start of appointment form ---------->
-
 <br>
 <br>
 <br>
@@ -10,7 +9,7 @@
             <div class="col-18">
                 <h3 class="fw-normal text-secondary fs-4 text-uppercase mb-4">Appointment form</h3>
             </div>
-            <form action="">
+            <form method="POST" action="/appointment">
                 <div class="row g-3">
                     <div class="col-md-6">
                         <input type="text" class="form-control" placeholder="First Name">
@@ -27,18 +26,31 @@
                     <div class="col-md-6">
                         <input type="date" class="form-control" placeholder="Enter Date">
                     </div>
+
                     <div class="col-md-6">
-                        <input type="time" class="form-control" placeholder="Enter Email">
-                    </div>
-                    <div class="col-12">
                         <select class="form-select">
-                            <option selected>Purpose Of Appointment</option>
-                            <option value="1">Web Design</option>
-                            <option value="2">Web Development</option>
-                            <option value="3">IOS Developemt</option>
+                            <option selected>Select Time </option>
+                            <option value="9am">9:00</option>
+                            <option value="10am">10:00 </option>
+                            <option value="11am">11:00 </option>
+                            <option value="12pm">12:00 </option>
+                            <option value="13pm">13:00</option>
+                            <option value="14pm">14:00 </option>
+                            <option value="15pm">15:00</option>
+                            <option value="16pm">16:00</option>
+                            <option value="17pm">17:00</option>
+                            <option value="GPclosed">Closed</option>
                         </select>
                     </div>
 
+                    <div class="col-12">
+                        <select class="form-select">
+                            <option selected> Select Preffered Doctor</option>
+                            <option value="1"> Dr John Smith </option>
+                            <option value="2">TBC</option>
+                            <option value="3">Random</option>
+                        </select>
+                    </div>
 
                     <div class="col-12">
                         <textarea class="form-control" placeholder="Appointment Description"></textarea>
@@ -52,6 +64,7 @@
         </div>
     </div>
 </div>
+
 
 
 

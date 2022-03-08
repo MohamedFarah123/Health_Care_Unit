@@ -128,7 +128,7 @@ def drlogout():
     return redirect('routes.drlogout')
 
 
-@auth.route('/apppointment')
+@auth.route('/apppointment', methods=['GET', 'Post'])
 @login_required
 def appointment():
-    pass
+    return render_template('drdashboard.html', name=current_user.email)
