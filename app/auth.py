@@ -131,4 +131,11 @@ def drlogout():
 @auth.route('/apppointment', methods=['GET', 'Post'])
 @login_required
 def appointment():
-    return render_template('drdashboard.html', name=current_user.email)
+
+    return render_template('#')
+
+
+@auth.route('/confirmation')
+@login_required
+def confirmation():
+    return render_template('confirmation', name=current_user.email)

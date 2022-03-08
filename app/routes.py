@@ -53,6 +53,12 @@ def drdashboard():
     return render_template('drdashboard.html', name=current_user.email)
 
 
+@routes.route('/confirmation')
+@login_required
+def confirmation():
+    return render_template('confirmation', name=current_user.email)
+
+
 @routes.route('/drlogout')
 @login_required
 def drlogout():

@@ -9,27 +9,28 @@
             <div class="col-18">
                 <h3 class="fw-normal text-secondary fs-4 text-uppercase mb-4">Appointment form</h3>
             </div>
+            <div class="appointment-form">
             <form method="POST" action="/appointment">
                 <div class="row g-3">
                     <div class="col-md-6">
-                        <input type="text" class="form-control" placeholder="First Name">
+                        <input type="text" class="form-control" name="your_name" placeholder="First Name" required>
                     </div>
                     <div class="col-md-6">
-                        <input type="text" class="form-control" placeholder="Last Name">
+                        <input type="text" class="form-control" name="your_lastname" placeholder="Last Name" required>
                     </div>
                     <div class="col-md-6">
-                        <input type="tel" class="form-control" placeholder="Phone Number">
+                        <input type="tel" class="form-control"  name="your_number" placeholder="Phone Number" required>
                     </div>
                     <div class="col-md-6">
-                        <input type="email" class="form-control" placeholder="Enter Email">
+                        <input type="email" class="form-control" name="your_email" placeholder="Enter Email" required>
                     </div>
                     <div class="col-md-6">
-                        <input type="date" class="form-control" placeholder="Enter Date">
+                        <input type="date" class="form-control" name="your_date" placeholder="Enter Date" required>
                     </div>
 
-                    <div class="col-md-6">
-                        <select class="form-select">
-                            <option selected>Select Time </option>
+                    <div class="col-md-6" >
+                        <select name="slot" class="form-select">
+                            <option selected>Select Time  </option>
                             <option value="9am">9:00</option>
                             <option value="10am">10:00 </option>
                             <option value="11am">11:00 </option>
@@ -64,7 +65,7 @@
         </div>
     </div>
 </div>
-
+</div>
 
 
 
