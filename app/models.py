@@ -15,14 +15,32 @@ class User(db.Model, UserMixin):
     birthday = db.Column(db.Integer)
     number = db.Column(db.Integer)
     password = db.Column(db.String(150))
+    appointmentID = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"))
     date_created = db.Column(db.DateTime(timezone=True), default=func.now())
+
+    # user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
 
 
 class Doctors(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150))
     email = db.Column(db.String(150), unique=True)
-    doctorid = db.Column(db.Integer)
+    doctorID = db.Column(db.Integer, db.ForeignKey('doctors.id', ondelete="CASCADE"))
     password = db.Column(db.String(150))
     department = db.Column(db.String(150))
+
+
+# Add unique = True to doctor id and delete db and run.
+
+
+class Appointment(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(150), unique=True)
+    first_name = db.Column(db.String(150))
+    second_name = db.Column(db.String(150))
+    number = db.Column(db.Integer)
+    date = db.Column(db.Integer, nullable=False)
+    slot = db.Column(db.String(150))
+    appointmentID = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"))
+
 

@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block title %}User Dashboard{% endblock %} {% block content %}
+{% extends "base.html" %} {% block title %}Appointment{% endblock %} {% block content %}
 <!--------------------- End of sidebar and start of appointment form ---------->
 <br>
 <br>
@@ -13,19 +13,19 @@
             <form method="POST" action="/appointment">
                 <div class="row g-3">
                     <div class="col-md-6">
-                        <input type="text" class="form-control" name="your_name" placeholder="First Name" required>
+                        <input type="text" class="form-control" name="first_name" placeholder="First Name" required>
                     </div>
                     <div class="col-md-6">
-                        <input type="text" class="form-control" name="your_lastname" placeholder="Last Name" required>
+                        <input type="text" class="form-control" name="second_name" placeholder="Last Name" required>
                     </div>
                     <div class="col-md-6">
-                        <input type="tel" class="form-control"  name="your_number" placeholder="Phone Number" required>
+                        <input type="tel" class="form-control"  name="number" placeholder="Phone Number" required>
                     </div>
                     <div class="col-md-6">
-                        <input type="email" class="form-control" name="your_email" placeholder="Enter Email" required>
+                        <input type="email" class="form-control" name="email" placeholder="Enter Email" required>
                     </div>
                     <div class="col-md-6">
-                        <input type="date" class="form-control" name="your_date" placeholder="Enter Date" required>
+                        <input type="date"  min="2022-03" max="2022-03" class="form-control" name="date" placeholder="Enter Date" required>
                     </div>
 
                     <div class="col-md-6" >
@@ -45,7 +45,7 @@
                     </div>
 
                     <div class="col-12">
-                        <select class="form-select">
+                        <select name="doctor" class="form-select">
                             <option selected> Select Preffered Doctor</option>
                             <option value="1"> Dr John Smith </option>
                             <option value="2">TBC</option>
@@ -66,7 +66,6 @@
     </div>
 </div>
 </div>
-
 
 
 {% endblock %}

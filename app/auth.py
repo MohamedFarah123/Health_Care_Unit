@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, make_response
 from flask import make_response
 from . import db
-from .models import User, Doctors
+from .models import User, Doctors, Appointment
 from flask_login import login_user, logout_user, login_required, current_user, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -109,6 +109,29 @@ def adminlogin():
     return render_template('adminlogin.html')
 
 
+@auth.route('appointment', methods=['GET', 'POST'])
+@login_required
+def appointment():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        first_name = request.form.get('first_name')
+        second_name = request.form.get('second_name')
+        number = request.form.get('number')
+        date = request.form.get('date')
+        slot = request.form.get('slot')
+        appointmentID = current_user.id
+
+        entry = Appointment(first_name=first_name, number=number, second_name=second_name, date=date,
+                            slot=slot, appointmentID=appointmentID)
+
+        db.session.add(entry)
+        db.session.commit()
+        flash('Successful booking!', category='success')
+        return redirect(url_for('routes.confirmation'))
+
+    return render_template('appointment.html', user=current_user.email, id=current_user.id, appointment=Appointment)
+
+
 @auth.route('adminlogout')
 def adminlogout():
     session.clear()
@@ -128,14 +151,13 @@ def drlogout():
     return redirect('routes.drlogout')
 
 
-@auth.route('/apppointment', methods=['GET', 'Post'])
-@login_required
-def appointment():
-
-    return render_template('#')
-
-
 @auth.route('/confirmation')
 @login_required
 def confirmation():
-    return render_template('confirmation', name=current_user.email)
+    return render_template('confirmation.html', name=current_user.id)
+
+
+@auth.route('/schedule')
+@login_required
+def schedule():
+    return render_template('schedule.html')

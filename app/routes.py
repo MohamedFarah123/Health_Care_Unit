@@ -56,7 +56,13 @@ def drdashboard():
 @routes.route('/confirmation')
 @login_required
 def confirmation():
-    return render_template('confirmation', name=current_user.email)
+    return render_template('confirmation.html', name=current_user.id)
+
+
+@routes.route('/schedule')
+@login_required
+def schedule():
+    return render_template('schedule.html', name=current_user.id)
 
 
 @routes.route('/drlogout')
