@@ -5,32 +5,32 @@
 <br>
 <div class="container mt-5">
     <div class="row">
-        <div class="col-md-6 offset-md-3 border p-4 shadow bg-light">
             <div class="col-18">
-                <h3 class="fw-normal text-secondary fs-4 text-uppercase mb-4">Appointment form</h3>
+                <center> <h3 class="fw-normal text-secondary fs-4 text-uppercase mb-4">Appointment form</h3> </center>
             </div>
             <div class="appointment-form">
             <form method="POST" action="/appointment">
                 <div class="row g-3">
                     <div class="col-md-6">
-                        <input type="text" class="form-control" name="first_name" placeholder="First Name" required>
+                        <input type="text"  class="form-control" name="first_name" placeholder="First Name" required>
                     </div>
                     <div class="col-md-6">
-                        <input type="text" class="form-control" name="second_name" placeholder="Last Name" required>
+                        <input type="text"  class="form-control" name="second_name" placeholder="Last Name" required>
                     </div>
                     <div class="col-md-6">
-                        <input type="tel" class="form-control"  name="number" placeholder="Phone Number" required>
+                        <input type="tel"   class="form-control"  name="number" placeholder="Phone Number" required>
                     </div>
                     <div class="col-md-6">
                         <input type="email" class="form-control" name="email" placeholder="Enter Email" required>
                     </div>
                     <div class="col-md-6">
-                        <input type="date"  min="2022-03" max="2022-03" class="form-control" name="date" placeholder="Enter Date" required>
+                        <input type="date"  class="form-control" name="date" min="2022-03-14" max="2022-03-18" placeholder="Enter Date" required>
+                        <!-- Hardcoded at the moment, find automatic fix -->
                     </div>
 
                     <div class="col-md-6" >
                         <select name="slot" class="form-select">
-                            <option selected>Select Time  </option>
+                            <option selected>Select Time</option>
                             <option value="9am">9:00</option>
                             <option value="10am">10:00 </option>
                             <option value="11am">11:00 </option>
@@ -53,8 +53,8 @@
                         </select>
                     </div>
 
-                    <div class="col-12">
-                        <textarea class="form-control" placeholder="Appointment Description"></textarea>
+                    <div class="col-15">
+                        <textarea class="form-control" name="Description" placeholder="Appointment Description"></textarea>
                     </div>
                     <div class="col-12 mt-5">
                         <button type="submit" class="btn btn-info float-end">Book Appointment</button>

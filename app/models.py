@@ -7,6 +7,8 @@ from flask_admin.contrib.sqla import ModelView
 from datetime import datetime
 
 
+# BIG PROBLEM WITH NOT NULL FUNCTION.
+
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True)
@@ -30,9 +32,6 @@ class Doctors(db.Model, UserMixin):
     department = db.Column(db.String(150))
 
 
-# Add unique = True to doctor id and delete db and run.
-
-
 class Appointment(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True)
@@ -41,6 +40,8 @@ class Appointment(db.Model, UserMixin):
     number = db.Column(db.Integer)
     date = db.Column(db.Integer, nullable=False)
     slot = db.Column(db.String(150))
+    # slot = db.Column(db.String(150), unique=True)
+    Description = db.Column(db.String(150))
+    doctorID = db.Column(db.Integer, db.ForeignKey('doctors.id', ondelete="CASCADE"))
     appointmentID = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"))
-
 

@@ -683,6 +683,11 @@ fieldset legend.title {
     display:block;
 }
 
+textarea {
+  width: 300px;
+  height: 150px;
+}
+
 .time-day {
     font-size:15px;
     line-height: 22px;

@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, make_response
 from flask import make_response
+from datetime import date as dt
+import smtplib
 from . import db
 from .models import User, Doctors, Appointment
 from flask_login import login_user, logout_user, login_required, current_user, login_manager
@@ -119,17 +121,22 @@ def appointment():
         number = request.form.get('number')
         date = request.form.get('date')
         slot = request.form.get('slot')
+        Description = request.form.get('Description')
         appointmentID = current_user.id
 
-        entry = Appointment(first_name=first_name, number=number, second_name=second_name, date=date,
-                            slot=slot, appointmentID=appointmentID)
+        entry = Appointment(first_name=first_name, number=number, second_name=second_name, Description=Description, date=date, slot=slot,
+                            appointmentID=appointmentID)
+
+        message = first_name + " " + second_name + " has booked an appointment on" + date + "at" + slot + "Thank you."
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.starttls()
+        server.login("finalyearproject452@gmail.com", "finalyearproject123")
+        server.sendmail("finalyearproject452@gmail.com", email, message)
 
         db.session.add(entry)
         db.session.commit()
         flash('Successful booking!', category='success')
         return redirect(url_for('routes.confirmation'))
-
-    return render_template('appointment.html', user=current_user.email, id=current_user.id, appointment=Appointment)
 
 
 @auth.route('adminlogout')
