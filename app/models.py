@@ -7,8 +7,6 @@ from flask_admin.contrib.sqla import ModelView
 from datetime import datetime
 
 
-# BIG PROBLEM WITH NOT NULL FUNCTION.
-
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True)
@@ -39,9 +37,14 @@ class Appointment(db.Model, UserMixin):
     second_name = db.Column(db.String(150))
     number = db.Column(db.Integer)
     date = db.Column(db.Integer, nullable=False)
-    slot = db.Column(db.String(150))
-    # slot = db.Column(db.String(150), unique=True)
+    slot_time = db.Column(db.String, db.ForeignKey('slots.id', ondelete="CASCADE"))
     Description = db.Column(db.String(150))
     doctorID = db.Column(db.Integer, db.ForeignKey('doctors.id', ondelete="CASCADE"))
     appointmentID = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"))
 
+
+class Slots(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    slot_time = db.Column(db.String(150), db.ForeignKey('slots.id', ondelete="CASCADE"))
+    is_booked = db.Column(db.Boolean, nullable=False, default=False)
+    booked_by_email = db.Column(db.String(150))

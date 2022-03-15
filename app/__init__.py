@@ -22,7 +22,7 @@ def create_app():
     app.register_blueprint(routes, url_prefix="/")
     app.register_blueprint(auth, url_prefix="/")
 
-    from .models import User, Doctors, Appointment
+    from .models import User, Doctors, Appointment, Slots
 
     admin = Admin(app)
 
@@ -36,6 +36,7 @@ def create_app():
     admin.add_view(SecureModelView(User, db.session))
     admin.add_view(SecureModelView(Doctors, db.session))
     admin.add_view(SecureModelView(Appointment, db.session))
+    admin.add_view(SecureModelView(Slots, db.session))
 
     create_database(app)
 
