@@ -126,13 +126,16 @@ def appointment():
         booked_by_email = request.form.get('booked_by_email')
         appointmentID = current_user.id
 
-        entry = Appointment(first_name=first_name, number=number, second_name=second_name, Description=Description,
+        entry = Appointment(email=email, first_name=first_name, number=number, second_name=second_name, Description=Description,
                             date=date, slot_time=slot_time, appointmentID=appointmentID)
 
-        exists = Slots.query.filter_by(slot_time=slot_time, is_booked=True)
+        exists = Slots.query.filter_by(slot_time=slot_time, is_booked=True).first()
 
         if not exists:
-            flash('Successful booking!', category='success')
+            check = Slots(slot_time=slot_time, is_booked=True, booked_by_email=booked_by_email)
+            db.session.add(check)
+            db.session.commit()
+            flash("Successful booking!", category='success')
         else:
             flash("This slot has been taken! Please choose another one")
             return render_template('appointment.html', failed=True)
