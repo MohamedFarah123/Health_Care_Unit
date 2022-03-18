@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, make_response
 from flask import make_response
-from datetime import date as dt
 import smtplib
 from . import db
 from .models import User, Doctors, Appointment, Slots
@@ -129,6 +128,12 @@ def appointment():
         entry = Appointment(email=email, first_name=first_name, number=number, second_name=second_name, Description=Description,
                             date=date, slot_time=slot_time, appointmentID=appointmentID)
 
+        message = first_name + " " " " + second_name + " has booked an appointment on " + date + " at " + slot_time + " Thank you"
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.starttls()
+        server.login("finalyearproject452@gmail.com", "finalyearproject123")
+        server.sendmail("finalyearproject452@gmail.com", booked_by_email, message)
+
         exists = Slots.query.filter_by(slot_time=slot_time, is_booked=True).first()
 
         if not exists:
@@ -174,3 +179,17 @@ def confirmation():
 @login_required
 def schedule():
     return render_template('schedule.html')
+
+
+@auth.route('/forgot', methods=['POST', 'GET'])
+def forgot():
+    if request.method == 'GET':
+        return render_template('forgot.html')
+
+    if request.method == 'POST':
+        email = request.form.get('email')
+        user = User.verify_email(email)
+
+        if user:
+            send_email(user)
+    pass

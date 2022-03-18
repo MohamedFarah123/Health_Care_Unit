@@ -1,7 +1,5 @@
 from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for
-from functools import wraps
 from flask_login import login_user, login_required, logout_user, current_user
-from flask import session
 
 routes = Blueprint('routes', __name__)
 
@@ -59,6 +57,11 @@ def confirmation():
     return render_template('confirmation.html', name=current_user.id)
 
 
+@routes.route('forgot')
+def forgot():
+    return render_template('forgot.html')
+
+
 @routes.route('/schedule')
 @login_required
 def schedule():
@@ -71,3 +74,9 @@ def drlogout():
     logout_user()
     flash("You have been Logged out!")
     return redirect(url_for('routes.drlogout'))
+
+
+@routes.route('/history')
+@login_required
+def history():
+    return render_template('history.html', name=current_user.id)

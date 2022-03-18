@@ -1,0 +1,20 @@
+{% extends "base.html" %} {% block title %}Forgot Password{% endblock %} {% block content %}
+<div class="mt-5 pt-5">
+<form method="POST">
+    <h3 align="center">Reset Password</h3>
+    <div class="form-group">
+        <label for="email"> Email Address</label>
+        <input required
+                type="text"
+                id="email"
+                name="email"
+                class="form-control"
+                placeholder="Enter Email"/>
+        <br>
+        <div align="center">
+            <button type="submit" class="btn btn-dark">Login</button>
+        </div>
+    </div>
+</form>
+</div>
+{% endblock %}

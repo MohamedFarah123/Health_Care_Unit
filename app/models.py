@@ -1,10 +1,9 @@
 from . import db
 from flask_login import UserMixin
-from flask_login import LoginManager, current_user
+import os
+import jwt
 from sqlalchemy.sql import func
-from flask_admin import Admin
-from flask_admin.contrib.sqla import ModelView
-from datetime import datetime
+from time import time
 
 
 class User(db.Model, UserMixin):
@@ -17,8 +16,6 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150))
     appointmentID = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"))
     date_created = db.Column(db.DateTime(timezone=True), default=func.now())
-
-    # user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
 
 
 class Doctors(db.Model, UserMixin):

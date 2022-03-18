@@ -688,6 +688,10 @@ textarea {
   height: 150px;
 }
 
+h1 {
+  text-align: center;
+}
+
 .time-day {
     font-size:15px;
     line-height: 22px;
