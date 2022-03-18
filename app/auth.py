@@ -183,13 +183,4 @@ def schedule():
 
 @auth.route('/forgot', methods=['POST', 'GET'])
 def forgot():
-    if request.method == 'GET':
-        return render_template('forgot.html')
-
-    if request.method == 'POST':
-        email = request.form.get('email')
-        user = User.verify_email(email)
-
-        if user:
-            send_email(user)
-    pass
+    return render_template('forgot.html')
