@@ -3,21 +3,16 @@
 <br>
 <br>
 <br>
-<form method="POST" action="/appointment">
-    <input
-        type="hidden"
-        name="redirect"
-        value="http://127.0.0.1:5000/confirmation" >
-    <h1> Confirmation </h1>
-    <br>
-    <strong> Your Appointment Details: </strong>
-    <br>
-    <p> First name: {{current_user.first_name}}</p>
-    <p> Second Name: {{current_user.second_name}}</p>
-    <p> Appointment date: {{current_user.date}}</p>
-    <p> Time Slot: {{current_user.slot_time}}</p>
-    <p> Appointment Description: {{current_user.Description}}</p>
-</form>
+<h1>Confirmation </h1>
+<br>
+<div class="confo">
+    <img src="static/tick.png" class="center" alt="tick" height="150" width="100">
+</div>
+<section>
+    <div>
+        <p>Congrats! You have booked your appointment! </p>
+        <p>Please check your email for confirmation on your date, time slot and more! </p>
 
-
+    </div>
+</section>
 {% endblock %}

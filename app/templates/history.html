@@ -1,3 +1,36 @@
 {% extends "base.html" %} {% block title %}Patient Appointment History {% endblock %} {% block content %}
-
+<br>
+<br>
+<div class="container mt-5">
+    <div>
+        <div class="col-18">
+                <center> <h3 class="fw-normal text-primary fs-4 text-uppercase mb-4">Appointment History</h3> </center>
+        </div>
+    </div>
+    <table id="data" class="table table-striped">
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Second Name</th>
+            <th>Date</th>
+            <th>Time Slot</th>
+            <th>Description</th>
+            <th>Appointment ID</th>
+            <th> Status </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for appoint in appoint %}
+        <tr>
+            <td>{{ appoint.first_name }}</td>
+            <td>{{ appoint.second_name }}</td>
+            <td>{{ appoint.date }}</td>
+            <td>{{ appoint.slot_time }}</td>
+            <td>{{ appoint.Description }}</td>
+            <td>{{ appoint.appointmentID }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+</div>
 {% endblock %}

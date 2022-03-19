@@ -125,7 +125,8 @@ def appointment():
         booked_by_email = request.form.get('booked_by_email')
         appointmentID = current_user.id
 
-        entry = Appointment(email=email, first_name=first_name, number=number, second_name=second_name, Description=Description,
+        entry = Appointment(email=email, first_name=first_name, number=number, second_name=second_name,
+                            Description=Description,
                             date=date, slot_time=slot_time, appointmentID=appointmentID)
 
         message = first_name + " " " " + second_name + " has booked an appointment on " + date + " at " + slot_time + " Thank you"
@@ -184,3 +185,10 @@ def schedule():
 @auth.route('/forgot', methods=['POST', 'GET'])
 def forgot():
     return render_template('forgot.html')
+
+
+@auth.route('history', methods=['POST', 'GET'])
+@login_required
+def history():
+    appoint = Appointment.query
+    return render_template('history.html', appoint=appoint)
