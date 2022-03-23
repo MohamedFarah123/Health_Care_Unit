@@ -1,7 +1,5 @@
 from . import db
 from flask_login import UserMixin
-import os
-import jwt
 from sqlalchemy.sql import func
 from time import time
 
@@ -39,9 +37,20 @@ class Appointment(db.Model, UserMixin):
     doctorID = db.Column(db.Integer, db.ForeignKey('doctors.id', ondelete="CASCADE"))
     appointmentID = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"))
 
+    def to_dict(self):
+        return {
+            'first_name': self.first_name,
+            'second_name': self.second_name,
+            'date': self.date,
+            'slot_time': self.slot_time,
+            'Description': self.Description,
+            'appointmentID': self.appointmentID
+        }
+
 
 class Slots(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     slot_time = db.Column(db.String(150), db.ForeignKey('slots.id', ondelete="CASCADE"))
+    date = db.Column(db.Integer, nullable=False)
     is_booked = db.Column(db.Boolean, nullable=False, default=False)
     booked_by_email = db.Column(db.String(150))

@@ -1,4 +1,4 @@
-from flask import Flask, session, abort
+from flask import Flask, session, abort, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
@@ -47,6 +47,7 @@ def create_app():
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
+
     return app
 
 
@@ -54,3 +55,4 @@ def create_database(app):
     if not path.exists("website/" + DB_NAME):
         db.create_all(app=app)
         print("Created database!")
+

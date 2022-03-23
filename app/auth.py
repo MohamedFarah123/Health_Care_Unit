@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, make_response
 from flask import make_response
 import smtplib
-from . import db
+from .models import db
 from .models import User, Doctors, Appointment, Slots
 from flask_login import login_user, logout_user, login_required, current_user, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -45,12 +45,11 @@ def drlogin():
     return render_template('drlogin.html')
 
 
-@auth.route('/home')
-def home():
-    resp = make_response(render_template(...))
-    resp.set_cookie('sessionID', '', expires=0)
-    return resp
-
+# @auth.route('/home')
+# def home():
+# resp = make_response(render_template(...))
+# resp.set_cookie('sessionID', '', expires=0)
+# return resp
 
 @auth.route('/userdash')
 @login_required
@@ -129,16 +128,10 @@ def appointment():
                             Description=Description,
                             date=date, slot_time=slot_time, appointmentID=appointmentID)
 
-        message = first_name + " " " " + second_name + " has booked an appointment on " + date + " at " + slot_time + " Thank you"
-        server = smtplib.SMTP("smtp.gmail.com", 587)
-        server.starttls()
-        server.login("finalyearproject452@gmail.com", "finalyearproject123")
-        server.sendmail("finalyearproject452@gmail.com", booked_by_email, message)
-
-        exists = Slots.query.filter_by(slot_time=slot_time, is_booked=True).first()
+        exists = Slots.query.filter_by(slot_time=slot_time, is_booked=True, date=date).first()
 
         if not exists:
-            check = Slots(slot_time=slot_time, is_booked=True, booked_by_email=booked_by_email)
+            check = Slots(slot_time=slot_time, is_booked=True, booked_by_email=booked_by_email, date=date)
             db.session.add(check)
             db.session.commit()
             flash("Successful booking!", category='success')
@@ -187,8 +180,15 @@ def forgot():
     return render_template('forgot.html')
 
 
-@auth.route('history', methods=['POST', 'GET'])
 @login_required
+@auth.route('/')
 def history():
-    appoint = Appointment.query
-    return render_template('history.html', appoint=appoint)
+    return render_template('history')
+
+
+@auth.route('/api/data')
+@login_required
+def data():
+    appointmentID = current_user.id
+    return {
+        'data': [current_user.to_dict() for current_user in Appointment.query.filter_by(appointmentID=appointmentID)]}

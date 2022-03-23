@@ -76,7 +76,7 @@ def drlogout():
     return redirect(url_for('routes.drlogout'))
 
 
-@routes.route('history')
-@login_required
+@routes.route('/history')
 def history():
-    return render_template('history.html', name=current_user.id)
+    return render_template('history.html')
+
