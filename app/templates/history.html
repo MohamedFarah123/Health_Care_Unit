@@ -13,36 +13,49 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
-
 </head>
+    <script>
+    var table = $(document).ready(function() {
+  $('#data').DataTable({
+    "ajax": '/api/data',
+    columns: [{
+        data: 'first_name'
+      },
+      {
+        data: 'second_name'
+      },
+      {
+        data: 'date',
+        searchable: true
+      },
+      {
+        data: 'slot_time',
+        searchable: true
+      },
+      {
+        data: 'Description'
+      }
+    ],
+  });
+});
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-        $('#data').DataTable( {
-        "ajax": '/api/data',
-        columns: [
-        {data: 'first_name'},
-        {data: 'second_name'},
-        {data: 'date', searchable: true},
-        {data: 'slot_time', searchable: true},
-        {data: 'Description'}
-        ],
-    } );
-} );
-    </script>
+var table = $('#data').DataTable();
+$('#data').on('click', 'tbody tr', function() {
+  table.row(this).delete();
+})
+</script>
 
 <table id="data" class="table table-stripped" style="width:100%">
-        <thead>
-            <tr>
-                <th>First Name</th>
-                <th>Second Name</th>
-                <th>Date</th>
-                <th>Slot Time</th>
-                <th>Description</th>
-                <th>Cancel</th>
-            </tr>
-        </thead>
-    <tbody>
-    </tbody>
-    </table>
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Second Name</th>
+      <th>Date</th>
+      <th>Slot Time</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
 {% endblock %}

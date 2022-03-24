@@ -20,6 +20,11 @@ def register():
     return render_template('register.html')
 
 
+@routes.route('/drlogin')
+def drlogin():
+    return render_template('drlogin.html')
+
+
 @routes.route('/userdash')
 @login_required
 def userdash():
@@ -48,7 +53,7 @@ def appointment():
 @routes.route('/drdashboard')
 @login_required
 def drdashboard():
-    return render_template('drdashboard.html', name=current_user.email)
+    return render_template('drdashboard.html', name=current_user.name)
 
 
 @routes.route('/confirmation')

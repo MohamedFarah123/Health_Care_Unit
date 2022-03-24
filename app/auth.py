@@ -37,7 +37,7 @@ def drlogin():
             if doctor.password == password:
                 flash("Logged in", category='success')
                 login_user(doctor, remember=True)
-                return render_template('drdashboard.html')
+                return redirect(url_for('routes.drdashboard'))
             else:
                 flash("Password is incorrect", category="Error")
         else:
@@ -130,6 +130,12 @@ def appointment():
 
         exists = Slots.query.filter_by(slot_time=slot_time, is_booked=True, date=date).first()
 
+        message = first_name + " " + second_name + " has booked an appointment on " + date + " at " + slot_time + " Thankyou"
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.starttls()
+        server.login("finalyearproject452@gmail.com", "finalyearproject123")
+        server.sendmail("finalyearproject452@gmail.com", booked_by_email, message)
+
         if not exists:
             check = Slots(slot_time=slot_time, is_booked=True, booked_by_email=booked_by_email, date=date)
             db.session.add(check)
@@ -192,3 +198,9 @@ def data():
     appointmentID = current_user.id
     return {
         'data': [current_user.to_dict() for current_user in Appointment.query.filter_by(appointmentID=appointmentID)]}
+
+
+@auth.route('/api/schedule')
+@login_required
+def drschedule():
+    pass

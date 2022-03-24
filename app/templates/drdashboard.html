@@ -5,21 +5,22 @@
 
 <br>
 <div class="wrapper">
+    <br>
     <!-- Sidebar -->
     <nav id="sidebar">
         <div class="sidebar-header">
             <h3>Doctor Dashboard</h3>
         </div>
         <ul class="list-unstyled components">
-            <p> {{ current_user.name}}</p>
+            <p> {{ current_user}}</p>
             <li class="active">
-                <a href="userdash">Dashboard</a>
+                <a href="drdashboard">Dashboard</a>
             </li>
             <li>
                 <a href="schedule">Schedule</a>
             </li>
             <li>
-                <a href="profile">My Profile</a>
+                <a href="drprofile">My Profile</a>
             </li>
         </ul>
     </nav>
@@ -63,7 +64,7 @@
                 <h1> History </h1>
             </div>
             <div class="icon-case">
-                <a href="history">
+                <a href="schedule">
                 <img src="static/history.png" width="150" alt=""/>
                 </a>
             </div>

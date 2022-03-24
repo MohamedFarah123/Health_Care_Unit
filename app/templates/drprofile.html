@@ -1,5 +1,5 @@
 {% extends "base.html"  %}
-{% block title %}My Profile{% endblock %} {% block content %}
+{% block title %}User Dashboard{% endblock %} {% block content %}
 <div class="wrapper">
     <!-- Sidebar -->
     <nav id="sidebar">
@@ -7,7 +7,7 @@
             <h3>My Dashboard</h3>
         </div>
         <ul class="list-unstyled components">
-            <p>My Dashboard</p>
+            <p>{{ current_user.name}}</p>
             <li class="active">
                 <a href="userdash">Dashboard</a>
             </li>
