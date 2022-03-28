@@ -1,11 +1,11 @@
 from flask import Flask, session, abort, render_template
-from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
+from app.extensions import db
 from os import path
 from flask_login import LoginManager, current_user
 
-db = SQLAlchemy()
+
 DB_NAME = "database.db"
 
 

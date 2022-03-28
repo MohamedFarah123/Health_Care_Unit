@@ -1,6 +1,7 @@
-from . import db
+from app.extensions import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
+
 from time import time
 
 
@@ -18,11 +19,20 @@ class User(db.Model, UserMixin):
 
 class Doctors(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(150))
+    doctor_name = db.Column(db.String(150))
     email = db.Column(db.String(150), unique=True)
     doctorID = db.Column(db.Integer, db.ForeignKey('doctors.id', ondelete="CASCADE"))
     password = db.Column(db.String(150))
     department = db.Column(db.String(150))
+
+    def __repr__(self):
+        return {
+            'doctor_name': self.doctor_name,
+            'email': self.email,
+            'doctorID': self.doctorID,
+            'password': self.password,
+            'department': self.department
+        }
 
 
 class Appointment(db.Model, UserMixin):
@@ -35,6 +45,7 @@ class Appointment(db.Model, UserMixin):
     slot_time = db.Column(db.String, db.ForeignKey('slots.id', ondelete="CASCADE"))
     Description = db.Column(db.String(150))
     doctorID = db.Column(db.Integer, db.ForeignKey('doctors.id', ondelete="CASCADE"))
+    doctor_name = db.Column(db.String(150))
     appointmentID = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"))
 
     def to_dict(self):
@@ -44,7 +55,9 @@ class Appointment(db.Model, UserMixin):
             'date': self.date,
             'slot_time': self.slot_time,
             'Description': self.Description,
-            'appointmentID': self.appointmentID
+            'appointmentID': self.appointmentID,
+            'doctorID': self.doctorID,
+            'doctor_name': self.doctor_name
         }
 
 
@@ -53,4 +66,5 @@ class Slots(db.Model, UserMixin):
     slot_time = db.Column(db.String(150), db.ForeignKey('slots.id', ondelete="CASCADE"))
     date = db.Column(db.Integer, nullable=False)
     is_booked = db.Column(db.Boolean, nullable=False, default=False)
+    doctorID = db.Column(db.Integer, db.ForeignKey('doctors.id', ondelete="CASCADE"))
     booked_by_email = db.Column(db.String(150))

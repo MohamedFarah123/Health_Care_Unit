@@ -1,8 +1,8 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for, session, make_response
-from flask import make_response
+from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 import smtplib
-from .models import db
-from .models import User, Doctors, Appointment, Slots
+import os
+from app.extensions import db
+from app.models import User, Doctors, Appointment, Slots
 from flask_login import login_user, logout_user, login_required, current_user, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -44,12 +44,6 @@ def drlogin():
             flash("Email does not exist", category="Error")
     return render_template('drlogin.html')
 
-
-# @auth.route('/home')
-# def home():
-# resp = make_response(render_template(...))
-# resp.set_cookie('sessionID', '', expires=0)
-# return resp
 
 @auth.route('/userdash')
 @login_required
@@ -109,7 +103,7 @@ def adminlogin():
     return render_template('adminlogin.html')
 
 
-@auth.route('appointment', methods=['GET', 'POST'])
+@auth.route('/appointment', methods=['GET', 'POST'])
 @login_required
 def appointment():
     if request.method == 'POST':
@@ -121,20 +115,16 @@ def appointment():
         Description = request.form.get('Description')
         slot_time = request.form.get('slot_time')
         is_booked = request.form.get('is_booked')
+        doctorID = request.form.get('doctorID')
         booked_by_email = request.form.get('booked_by_email')
+        doctor_name = request.form.get('doctor_name')
         appointmentID = current_user.id
 
         entry = Appointment(email=email, first_name=first_name, number=number, second_name=second_name,
                             Description=Description,
-                            date=date, slot_time=slot_time, appointmentID=appointmentID)
+                            date=date, slot_time=slot_time, appointmentID=appointmentID, doctor_name=doctor_name)
 
         exists = Slots.query.filter_by(slot_time=slot_time, is_booked=True, date=date).first()
-
-        message = first_name + " " + second_name + " has booked an appointment on " + date + " at " + slot_time + " Thankyou"
-        server = smtplib.SMTP("smtp.gmail.com", 587)
-        server.starttls()
-        server.login("finalyearproject452@gmail.com", "finalyearproject123")
-        server.sendmail("finalyearproject452@gmail.com", booked_by_email, message)
 
         if not exists:
             check = Slots(slot_time=slot_time, is_booked=True, booked_by_email=booked_by_email, date=date)
@@ -143,11 +133,14 @@ def appointment():
             flash("Successful booking!", category='success')
         else:
             flash("This slot has been taken! Please choose another one")
-            return render_template('appointment.html', failed=True)
+            return render_template('appointment.html')
 
         db.session.add(entry)
         db.session.commit()
         return redirect(url_for('routes.confirmation'))
+
+    selected_doctors = Doctors.query.filter_by(Doctors.doctor_name)
+    return render_template('appointment.html', name=current_user.email, all_doctors=selected_doctors)
 
 
 @auth.route('adminlogout')

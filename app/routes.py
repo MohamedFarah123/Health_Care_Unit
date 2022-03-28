@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for
 from flask_login import login_user, login_required, logout_user, current_user
+from app.models import User, Doctors, Appointment, Slots
 
 routes = Blueprint('routes', __name__)
 
@@ -47,7 +48,8 @@ def profile():
 @routes.route('appointment')
 @login_required
 def appointment():
-    return render_template('appointment.html', name=current_user.email)
+    selected_doctors = Doctors.query.filter_by()
+    return render_template('appointment.html', name=current_user.email, all_doctors=selected_doctors)
 
 
 @routes.route('/drdashboard')

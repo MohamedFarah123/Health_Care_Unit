@@ -15,28 +15,19 @@
 
 <script>
     var table = $(document).ready(function() {
-  $('#schedule').DataTable({
-    "ajax": '/api/schedule',
-    columns: [{
-        schedule: 'first_name'
-      },
-      {
-        schedule: 'second_name'
-      },
-      {
-        schedule: 'date',
-        searchable: true
-      },
-      {
-        schedule: 'slot_time',
-        searchable: true
-      },
-      {
-        schedule: 'Description'
-      }
-    ],
-  });
-});
+        $('#schedule').DataTable( {
+        "ajax": '/api/schedule',
+        columns: [
+        {schedule: 'first_name'},
+        {schedule: 'second_name'},
+        {schedule: 'date', searchable: true},
+        {schedule: 'slot_time', searchable: true},
+        {schedule: 'Description'},
+        {schedule: 'name', searchable: true}
+        ],
+    } );
+} );
+
 </script>
 
 <table id="schedule" class="table table-stripped" style="width:100%">
@@ -47,6 +38,7 @@
       <th>Date</th>
       <th>Slot Time</th>
       <th>Description</th>
+        <th>Doctor name</th>
     </tr>
   </thead>
   <tbody>

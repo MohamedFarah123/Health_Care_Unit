@@ -43,11 +43,11 @@
                     </div>
 
                     <div class="col-12">
-                        <select name="doctor" class="form-select">
-                            <option selected> Select Preffered Doctor</option>
-                            <option value="1"> Dr John Smith </option>
-                            <option value="2">TBC</option>
-                            <option value="3">Random</option>
+                        <select name="doctor_name" class="form-select">
+                            <option selected> Select Preferred Doctor</option>
+                            {% for one_doctor in all_doctors %}
+                            <option value="{{one_doctor.doctor_name}} ">{{ one_doctor.doctor_name }}</option>
+                            {% endfor %}
                         </select>
                     </div>
 
