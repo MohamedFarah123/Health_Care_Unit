@@ -1,38 +1,34 @@
 {% extends "base.html"  %}
 {% block title %}User Dashboard{% endblock %} {% block content %}
+<br>
+<br>
+<br>
 <div class="wrapper">
+    <br>
     <!-- Sidebar -->
     <nav id="sidebar">
         <div class="sidebar-header">
-            <h3>My Dashboard</h3>
+            <h3>Doctor Dashboard</h3>
         </div>
         <ul class="list-unstyled components">
-            <p>{{ current_user.name}}</p>
+            <p> {{ current_user}}</p>
             <li class="active">
-                <a href="userdash">Dashboard</a>
+                <a href="drdashboard">Dashboard</a>
             </li>
             <li>
-                <a href="appointment">Book appointment </a>
+                <a href="schedule">Schedule</a>
             </li>
             <li>
-                <a href="history">Appointment History</a>
+                <a href="prescription">Prescription</a>
             </li>
             <li>
-                <a href="profile">My Profile</a>
+                <a href="drprofile">My Profile</a>
             </li>
         </ul>
     </nav>
+
+
 </div>
 
-<section>
-<div class="info">
-    <center>   <strong>Name:</strong> {{ current_user.name}} <br>                </center>
-    <center>   <strong>Email:</strong> {{ current_user.email}}<br>               </center>
-    <center>   <strong>Address:</strong> {{ current_user.address}}<br>           </center>
-    <center>   <strong>Birthday:</strong> {{ current_user.birthday}} <br>        </center>
-    <center>   <strong>Number:</strong> {{ current_user.number}} <br>            </center>
-    <center>   <strong>Date Joined:</strong> {{ current_user.date_created}}<br>  </center>
 
-    </div>
-    </section>
 {% endblock %}

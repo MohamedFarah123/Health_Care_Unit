@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block title %}Appointment{% endblock %} {% block content %}
+{% extends "base.html" %} {% block title %}Doctor Schedule{% endblock %} {% block content %}
 <br>
 <br>
 <br>
@@ -13,20 +13,30 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 </head>
 
-<script>
+ <script>
     var table = $(document).ready(function() {
-        $('#schedule').DataTable( {
-        "ajax": '/api/schedule',
-        columns: [
-        {schedule: 'first_name'},
-        {schedule: 'second_name'},
-        {schedule: 'date', searchable: true},
-        {schedule: 'slot_time', searchable: true},
-        {schedule: 'Description'},
-        {schedule: 'name', searchable: true}
-        ],
-    } );
-} );
+  $('#schedule').DataTable({
+    "ajax": '/api/schedule',
+    columns: [{
+        data: 'first_name'
+      },
+      {
+        data: 'second_name'
+      },
+      {
+        data: 'date',
+        searchable: true
+      },
+      {
+        data: 'slot_time',
+        searchable: true
+      },
+      {
+        data: 'Description'
+      }
+    ],
+  });
+});
 
 </script>
 
@@ -38,7 +48,6 @@
       <th>Date</th>
       <th>Slot Time</th>
       <th>Description</th>
-        <th>Doctor name</th>
     </tr>
   </thead>
   <tbody>

@@ -1,4 +1,6 @@
 from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for
+from functools import wraps
+from flask import session
 from flask_login import login_user, login_required, logout_user, current_user
 from app.models import User, Doctors, Appointment, Slots
 
@@ -41,8 +43,9 @@ def logout():
 
 
 @routes.route('profile')
+@login_required
 def profile():
-    return render_template('profile.html')
+    return render_template('profile.html', name=current_user.email)
 
 
 @routes.route('appointment')
@@ -55,7 +58,7 @@ def appointment():
 @routes.route('/drdashboard')
 @login_required
 def drdashboard():
-    return render_template('drdashboard.html', name=current_user.name)
+    return render_template('drdashboard.html', name=current_user.email)
 
 
 @routes.route('/confirmation')
@@ -71,8 +74,8 @@ def forgot():
 
 @routes.route('/schedule')
 @login_required
-def schedule():
-    return render_template('schedule.html', name=current_user.id)
+def schedules():
+    return render_template('schedule.html')
 
 
 @routes.route('/drlogout')
@@ -80,10 +83,24 @@ def schedule():
 def drlogout():
     logout_user()
     flash("You have been Logged out!")
-    return redirect(url_for('routes.drlogout'))
+    return redirect(url_for('routes.drlogin'))
 
 
 @routes.route('/history')
+@login_required
 def history():
     return render_template('history.html')
+
+
+@routes.route('/prescription')
+@login_required
+def prescription():
+    return render_template('prescription.html')
+
+
+@routes.route('/drprofile')
+@login_required
+def drprofile():
+    return render_template('drprofile.html', name=current_user.email)
+
 

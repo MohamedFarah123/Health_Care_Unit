@@ -1,5 +1,8 @@
 from app.extensions import db
-from flask_login import UserMixin
+import app
+from flask_login import UserMixin, login_manager
+
+import os.path
 from sqlalchemy.sql import func
 
 from time import time
@@ -25,7 +28,7 @@ class Doctors(db.Model, UserMixin):
     password = db.Column(db.String(150))
     department = db.Column(db.String(150))
 
-    def __repr__(self):
+    def to_dict(self):
         return {
             'doctor_name': self.doctor_name,
             'email': self.email,

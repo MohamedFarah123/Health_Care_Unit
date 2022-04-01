@@ -5,7 +5,6 @@ from app.extensions import db
 from os import path
 from flask_login import LoginManager, current_user
 
-
 DB_NAME = "database.db"
 
 
@@ -40,19 +39,21 @@ def create_app():
 
     create_database(app)
 
-    login_manager = LoginManager()
+    login_manager = LoginManager(app)
     login_manager.login_view = "auth.login"
+    login_manager.login_view = "auth.drlogin"
     login_manager.init_app(app)
 
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
-
     return app
+
+
+# return Doctor.query.get(int(id))
 
 
 def create_database(app):
     if not path.exists("website/" + DB_NAME):
         db.create_all(app=app)
         print("Created database!")
-
