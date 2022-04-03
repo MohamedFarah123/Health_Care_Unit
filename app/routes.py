@@ -1,8 +1,7 @@
-from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for
-from functools import wraps
-from flask import session
-from flask_login import login_user, login_required, logout_user, current_user
-from app.models import User, Doctors, Appointment, Slots
+from flask import Blueprint, flash, redirect, url_for
+from flask import render_template
+from flask_login import login_required, logout_user, current_user
+from app.models import User
 
 routes = Blueprint('routes', __name__)
 
@@ -51,7 +50,7 @@ def profile():
 @routes.route('appointment')
 @login_required
 def appointment():
-    selected_doctors = Doctors.query.filter_by()
+    selected_doctors = User.query.filter_by()
     return render_template('appointment.html', name=current_user.email, all_doctors=selected_doctors)
 
 
@@ -65,11 +64,6 @@ def drdashboard():
 @login_required
 def confirmation():
     return render_template('confirmation.html', name=current_user.id)
-
-
-@routes.route('forgot')
-def forgot():
-    return render_template('forgot.html')
 
 
 @routes.route('/schedule')
@@ -102,5 +96,3 @@ def prescription():
 @login_required
 def drprofile():
     return render_template('drprofile.html', name=current_user.email)
-
-

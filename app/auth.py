@@ -1,9 +1,11 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for, g, session, make_response, abort, \
-    jsonify
-import datetime
+from flask import Blueprint, render_template, request, flash, redirect, url_for, session, make_response
 from app.extensions import db
-from app.models import User, Doctors, Appointment, Slots
-from flask_login import login_user, logout_user, login_required, current_user, login_manager
+from app.passwordresetform import ResetPasswordForm, RequestResetForm
+import smtplib
+from flask_mail import Message
+from app import mail
+from app.models import User, Appointment, Slots
+from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
 auth = Blueprint('auth', __name__)
@@ -37,11 +39,11 @@ def login():
 @auth.route('/drlogin', methods=['GET', 'POST'])
 def drlogin():
     if request.method == 'POST':
-        em = request.form.get('email')
-        pwd = request.form.get('password')
-        doctor = Doctors.query.filter_by(email=em).first()
+        em = request.form.get('dr_email')
+        pwd = request.form.get('dr_password')
+        doctor = User.query.filter_by(dr_email=em).first()
         if doctor:
-            if doctor.password == pwd:
+            if doctor.dr_password == pwd:
                 login_user(doctor, remember=True)
                 flash('Logged in successfuly', category='success')
                 return redirect(url_for('routes.drdashboard'))
@@ -84,6 +86,7 @@ def register():
                             password=generate_password_hash(password1, method='sha256'))
             db.session.add(new_user)
             db.session.commit()
+
             login_user(new_user, remember=True)
             flash('User created')
             return redirect(url_for('routes.userdash'))
@@ -128,12 +131,10 @@ def appointment():
         booked_by_email = request.form.get('booked_by_email')
         doctor_names = request.form.get('doctor_name')
         appointmentID = current_user.id
-        selected_doc = Doctors.query.all()
+        selected_doc = User.query.all()
         doctor_select = ""
-        print(doctor_names)
         for doctorid in selected_doc:
             if doctorid.doctor_name == doctor_names.strip():
-                print(doctorid.doctor_name)
                 doctor_select = doctorid.id
                 break
 
@@ -141,6 +142,12 @@ def appointment():
                             Description=Description,
                             date=date, slot_time=slot_time, appointmentID=appointmentID, doctorID=doctor_select,
                             doctor_name=doctor_names)
+
+        message = "We are very happy to confirm that,\n" + first_name + " " + second_name + " has booked an appointment on " + date + " at " + slot_time + "with " + doctor_names
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.starttls()
+        server.login("finalyearproject452@gmail.com", "finalyearproject123")
+        server.sendmail("finalyearproject452@gmail.com", booked_by_email, message)
 
         exists = Slots.query.filter_by(slot_time=slot_time, is_booked=True, date=date).first()
 
@@ -157,7 +164,7 @@ def appointment():
         db.session.commit()
         return redirect(url_for('routes.confirmation'))
 
-    selected_doctors = Doctors.query.filter_by(Doctors.doctor_name)
+    selected_doctors = User.query.filter_by(User.doctor_name)
     return render_template('appointment.html', name=current_user.email, all_doctors=selected_doctors)
 
 
@@ -184,11 +191,6 @@ def drlogout():
 @login_required
 def confirmation():
     return render_template('confirmation.html', name=current_user.id)
-
-
-@auth.route('/forgot', methods=['POST','GET'])
-def forgot():
-    return render_template('forgot.html')
 
 
 @login_required
@@ -230,3 +232,44 @@ def drprofile():
     return render_template('drprofile.html')
 
 
+def send_reset_email(user):
+    token = user.get_reset_token()
+    msg = Message('Password Reset Request',
+                  sender='finalyearproject452@gmail.com',
+                  recipients=[user.email])
+    msg.body = f'''To reset your password, visit the following link:
+{url_for('auth.reset_token', token=token, _external=True)}
+If you did not make this request then simply ignore this email and no changes will be made.
+'''
+    mail.send(msg)
+
+
+@auth.route("/reset_request", methods=['GET', 'POST'])
+def reset_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('routes.home'))
+    form = RequestResetForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        send_reset_email(user)
+        flash('An email has been sent with instructions to reset your password.', 'info')
+        return redirect(url_for('routes.login'))
+    return render_template('emailstuff/reset_request.html', title='Reset Password', form=form)
+
+
+@auth.route("/reset_password/<token>", methods=['GET', 'POST'])
+def reset_token(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('routes.home'))
+    user = User.verify_reset_token(token)
+    if user is None:
+        flash('That is an invalid or expired token', 'warning')
+        return redirect(url_for('auth.reset_request'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        hashed_password = generate_password_hash(form.password.data)
+        user.password = hashed_password
+        db.session.commit()
+        flash('Your password has been updated! You are now able to log in', 'success')
+        return redirect(url_for('auth.login'))
+    return render_template('emailstuff/reset_token.html', title='Reset Password', form=form)
