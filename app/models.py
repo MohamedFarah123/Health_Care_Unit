@@ -82,3 +82,5 @@ class Slots(db.Model, UserMixin):
     is_booked = db.Column(db.Boolean, nullable=False, default=False)
     doctorID = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"))
     booked_by_email = db.Column(db.String(150))
+
+

@@ -70,7 +70,6 @@ def register():
         number = request.form.get('number')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
-
         email_exists = User.query.filter_by(email=email).first()
 
         if email_exists:
@@ -143,7 +142,7 @@ def appointment():
                             date=date, slot_time=slot_time, appointmentID=appointmentID, doctorID=doctor_select,
                             doctor_name=doctor_names)
 
-        message = "We are very happy to confirm that,\n" + first_name + " " + second_name + " has booked an appointment on " + date + " at " + slot_time + "with " + doctor_names
+        message = "We are very happy to confirm that,\n" + first_name + " " + second_name + "has booked an appointment on" + date + " at " + slot_time + "with " + doctor_names
         server = smtplib.SMTP("smtp.gmail.com", 587)
         server.starttls()
         server.login("finalyearproject452@gmail.com", "finalyearproject123")
