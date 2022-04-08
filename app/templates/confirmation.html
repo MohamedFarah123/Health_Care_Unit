@@ -3,16 +3,16 @@
 <br>
 <br>
 <br>
-<h1>Confirmation </h1>
 <br>
-<div class="confo">
-    <img src="static/tick.png" class="center" alt="tick" height="150" width="100">
-</div>
+<h1>Congratulations! Your confirmation details are below:</h1>
 <section>
-    <div>
-        <p>Congrats! You have booked your appointment! </p>
-        <p>Please check your email for confirmation on your date, time slot and more! </p>
-
+    <div class="boxed">
+        <center>   <strong>First Name:</strong> {{ current_user.first_name}} <br>                </center>
+        <center>   <strong>Slot time:</strong> {{ current_user.slot_time}}<br>               </center>
+        <center>   <strong>Date:</strong> {{ current_user.date}}<br>               </center>
+        <center>   <strong>Description:</strong> {{ current_user.Description}}<br>           </center>
     </div>
 </section>
 {% endblock %}
+
+

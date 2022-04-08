@@ -1,7 +1,7 @@
-from flask import Blueprint, flash, redirect, url_for
+from flask import Blueprint, flash, redirect, url_for, request
 from flask import render_template
 from flask_login import login_required, logout_user, current_user
-from app.models import User
+from app.models import User, Appointment, Slots
 
 routes = Blueprint('routes', __name__)
 

@@ -189,7 +189,7 @@ def drlogout():
 @auth.route('/confirmation')
 @login_required
 def confirmation():
-    return render_template('confirmation.html', name=current_user.id)
+    return render_template('confirmation.html')
 
 
 @login_required
