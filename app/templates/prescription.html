@@ -4,13 +4,17 @@
 <br>
 <br>
 <div>
+    <form method="POST" action="/prescription">
     <h1> Request Prescription </h1>
     <br>
     <div class="col-15">
-        <textarea class="form-control" name="request" placeholder="Prescription details"> </textarea>
+        <textarea class="form-control" name="request" placeholder="Appointment Description"> </textarea>
     </div>
     <div class="col-12 mt-5">
-       <a href="userdash"> <button type="submit" class="btn btn-info float-end">Request</button> </a>
+       <a href="userdash"> <button name="requests" value="Something" type="submit" class="btn btn-info float-end" >Request</button> </a>
     </div>
+        </form>
 </div>
 {% endblock %}
+
+

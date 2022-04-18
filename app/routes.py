@@ -41,12 +41,6 @@ def logout():
     return redirect(url_for('routes.login'))
 
 
-@routes.route('profile')
-@login_required
-def profile():
-    return render_template('profile.html', name=current_user.email)
-
-
 @routes.route('appointment')
 @login_required
 def appointment():
@@ -92,7 +86,4 @@ def prescription():
     return render_template('prescription.html')
 
 
-@routes.route('/drprofile')
-@login_required
-def drprofile():
-    return render_template('drprofile.html', name=current_user.email)
+

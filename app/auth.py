@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, make_response
 from app.extensions import db
-from app.passwordresetform import ResetPasswordForm, RequestResetForm
+from app.passwordresetform import ResetPasswordForm, RequestResetForm, UpdateAccountForm, UpdateDrForm
 import smtplib
 from flask_mail import Message
 from app import mail
@@ -192,6 +192,41 @@ def confirmation():
     return render_template('confirmation.html')
 
 
+@auth.route("/profile", methods=['GET', 'POST'])
+@login_required
+def profile():
+    form = UpdateAccountForm()
+    if form.validate_on_submit():
+        current_user.email = form.email.data
+        current_user.address = form.address.data
+        current_user.number = form.number.data
+        db.session.commit()
+        flash('Your account has been updated!', 'success')
+        return redirect(url_for('auth.profile'))
+    elif request.method == 'GET':
+        form.email.data = current_user.email
+        form.address.data = current_user.address
+        form.number.data = current_user.number
+    return render_template('profile.html', title='profile', form=form)
+
+
+@auth.route('/drprofile', methods=['GET', 'POST'])
+@login_required
+def drprofile():
+    form = UpdateDrForm()
+    if form.validate_on_submit():
+        current_user.dr_email = form.dr_email.data
+        current_user.doctor_name = form.doctor_name.data
+        current_user.department = form.dr_department.data
+        db.session.commit()
+        flash('Your account has been updated!', 'success')
+        return redirect(url_for('auth.drprofile'))
+    elif request.method == 'GET':
+        form.dr_email.data = current_user.dr_email
+        form.dr_department.data = current_user.dr_department
+    return render_template('drprofile.html', title='drprofile', form=form)
+
+
 @login_required
 @auth.route('/')
 def history():
@@ -223,12 +258,6 @@ def schedule():
 
     return {
         'data': [current_user.to_dict() for current_user in Appointment.query.filter_by(doctorID=doctorID)]}
-
-
-@auth.route('/drprofile')
-@login_required
-def drprofile():
-    return render_template('drprofile.html')
 
 
 def send_reset_email(user):
@@ -272,3 +301,14 @@ def reset_token(token):
         flash('Your password has been updated! You are now able to log in', 'success')
         return redirect(url_for('auth.login'))
     return render_template('emailstuff/reset_token.html', title='Reset Password', form=form)
+
+
+@auth.route('/prescription', methods=['POST'])
+@login_required
+def prescription():
+    if request.method == 'POST':
+        if request.form['requests'] == 'Something':
+            flash('You have successfully requested your prescription. Collection will be available after 14:00 next '
+                  'business working day')
+        return redirect(url_for('routes.userdash'))
+    return render_template('prescription.html')

@@ -1,34 +1,55 @@
 {% extends "base.html"  %}
-{% block title %}User Dashboard{% endblock %} {% block content %}
+{% block title %}Doctor Profile{% endblock %} {% block content %}
 <br>
 <br>
 <br>
-<div class="wrapper">
-    <br>
-    <!-- Sidebar -->
-    <nav id="sidebar">
-        <div class="sidebar-header">
-            <h3>Doctor Dashboard</h3>
+ <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ image_file }}">
+        <div class="media-body">
+          <h2 class="account-heading">{{ current_user.doctor_name }}</h2>
+          <p class="text-secondary">{{ current_user.dr_email }}</p>
         </div>
-        <ul class="list-unstyled components">
-            <p> {{ current_user.doctor_name}}</p>
-            <li class="active">
-                <a href="drdashboard">Dashboard</a>
-            </li>
-            <li>
-                <a href="schedule">Schedule</a>
-            </li>
-            <li>
-                <a href="prescription">Prescription</a>
-            </li>
-            <li>
-                <a href="drprofile">My Profile</a>
-            </li>
-        </ul>
-    </nav>
+      </div>
+        <form method="POST" action="" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Account Info</legend>
+                <div class="form-group">
+                    {{ form.dr_email.label(class="form-control-label") }}
+                    {% if form.dr_email.errors %}
+                        {{ form.dr_email(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.dr_email.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.dr_email(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
 
+                <div class="form-group">
+                    {{ form.dr_department.label(class="form-control-label") }}
 
-</div>
+                    {% if form.dr_department.errors %}
+                        {{ form.dr_department(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.dr_department.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.dr_department(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <br>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
 
 
 {% endblock %}
