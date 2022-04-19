@@ -12,3 +12,4 @@ SQLAlchemy==1.4.31
 Werkzeug==2.0.3
 WTForms==3.0.1
 Flask-Bcrypt==1.0.1
+Flask-Mail==0.9.1
