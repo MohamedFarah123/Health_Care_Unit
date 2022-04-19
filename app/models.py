@@ -2,9 +2,7 @@ from app.extensions import db
 from app import app
 import jwt
 from flask_login import UserMixin, login_manager
-from datetime import datetime
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from time import time
 from sqlalchemy.sql import func
 
 
@@ -82,5 +80,3 @@ class Slots(db.Model, UserMixin):
     is_booked = db.Column(db.Boolean, nullable=False, default=False)
     doctorID = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"))
     booked_by_email = db.Column(db.String(150))
-
-

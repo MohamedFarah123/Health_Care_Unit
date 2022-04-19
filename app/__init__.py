@@ -13,7 +13,7 @@ app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = 'finalyearproject452@gmail.com'
-app.config['MAIL_PASSWORD'] = 'finalyearproject123'
+app.config['MAIL_PASSWORD'] = 'nilajcekrdvbdpad'
 bcrypt = Bcrypt(app)
 mail = Mail(app)
 

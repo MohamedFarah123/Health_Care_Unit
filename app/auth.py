@@ -145,7 +145,7 @@ def appointment():
         message = "We are very happy to confirm that,\n" + first_name + " " + second_name + "has booked an appointment on" + date + " at " + slot_time + "with " + doctor_names
         server = smtplib.SMTP("smtp.gmail.com", 587)
         server.starttls()
-        server.login("finalyearproject452@gmail.com", "finalyearproject123")
+        server.login("finalyearproject452@gmail.com", "nilajcekrdvbdpad")
         server.sendmail("finalyearproject452@gmail.com", booked_by_email, message)
 
         exists = Slots.query.filter_by(slot_time=slot_time, is_booked=True, date=date).first()
