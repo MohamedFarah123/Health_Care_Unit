@@ -8,3 +8,4 @@ myproject
 
 *.pyc
 
+.database.db
