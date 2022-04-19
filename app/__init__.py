@@ -1,10 +1,5 @@
-from abc import ABC
-
 from flask import Flask, session, abort, render_template
 from flask_admin import Admin
-import smtplib
-import os
-from flask_admin.model import BaseModelView
 from flask_bcrypt import Bcrypt
 from flask_admin.contrib.sqla import ModelView
 from app.extensions import db
