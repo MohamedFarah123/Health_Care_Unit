@@ -86,4 +86,3 @@ def prescription():
     return render_template('prescription.html')
 
 
-
