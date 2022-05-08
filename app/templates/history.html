@@ -41,11 +41,6 @@
     ],
   });
 });
-
-var table = $('#data').DataTable();
-$('#data').on('click', 'tbody tr', function() {
-  table.row(this).delete();
-})
 </script>
 
 <table id="data" class="table table-stripped" style="width:100%">

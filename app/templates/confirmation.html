@@ -4,15 +4,17 @@
 <br>
 <br>
 <br>
-<h1>Congratulations! Your confirmation details are below:</h1>
-<section>
-    <div class="boxed">
-        <center>   <strong>First Name:</strong> {{ current_user.first_name}} <br>                </center>
-        <center>   <strong>Slot time:</strong> {{ current_user.slot_time}}<br>               </center>
-        <center>   <strong>Date:</strong> {{ current_user.date}}<br>               </center>
-        <center>   <strong>Description:</strong> {{ current_user.Description}}<br>           </center>
-    </div>
-</section>
+<div class="jumbotron text-center">
+  <h1 class="display-3">Thank You for booking!</h1>
+  <p class="lead"><strong>Please check your email</strong> for confirmation about your appointment!</p>
+  <hr>
+  <p>
+    Having trouble? <a href="">Contact us</a>
+  </p>
+  <p class="lead">
+    <a class="btn btn-info btn-sm" href="home" role="button"> Back to homepage</a>
+  </p>
+</div>
 {% endblock %}
 
 

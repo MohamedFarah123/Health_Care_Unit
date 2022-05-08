@@ -142,7 +142,9 @@ def appointment():
                             date=date, slot_time=slot_time, appointmentID=appointmentID, doctorID=doctor_select,
                             doctor_name=doctor_names)
 
-        message = "We are very happy to confirm that,\n" + first_name + " " + second_name + "has booked an appointment on" + date + " at " + slot_time + "with " + doctor_names
+        SUBJECT = "Appointment Confirmation!"
+        body = "We are very happy to confirm that,\n" + first_name + " " + second_name + "has booked an appointment on" + date + " at " + slot_time + "with " + doctor_names
+        message = f'Subject: {SUBJECT}\n\n{body}'
         server = smtplib.SMTP("smtp.gmail.com", 587)
         server.starttls()
         server.login("finalyearproject452@gmail.com", "nilajcekrdvbdpad")
@@ -255,7 +257,6 @@ def schedule():
     doctorID = current_user.id
     new = [current_user.to_dict() for current_user in Appointment.query.filter_by(doctorID=doctorID)]
     print(new)
-
     return {
         'data': [current_user.to_dict() for current_user in Appointment.query.filter_by(doctorID=doctorID)]}
 

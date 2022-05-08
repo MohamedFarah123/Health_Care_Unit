@@ -2,6 +2,7 @@ from flask import Flask, session, abort, render_template
 from flask_admin import Admin
 from flask_bcrypt import Bcrypt
 from flask_admin.contrib.sqla import ModelView
+from flask_admin.menu import MenuLink
 from app.extensions import db
 from os import path
 from flask_mail import Mail, Message
@@ -44,6 +45,7 @@ def create_app():
     admin.add_view(SecureModelView(User, db.session))
     admin.add_view(SecureModelView(Appointment, db.session))
     admin.add_view(SecureModelView(Slots, db.session))
+    admin.add_link(MenuLink(name='Logout', category='', url='/adminlogout'))
 
     create_database(app)
 
@@ -66,3 +68,4 @@ def create_database(app):
     if not path.exists("website/" + DB_NAME):
         db.create_all(app=app)
         print("Created database!")
+

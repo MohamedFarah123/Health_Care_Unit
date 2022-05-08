@@ -2767,11 +2767,10 @@ textarea.form-control-lg {
   border: 180px solid #89CFF0 ;
   border-radius: 20px ;
   margin: auto;
-  width: 50%;
+  width: 30%;
   align-items: center;
-  height: 100px;
+  height: 50px;
 }
-
 
 img {
   opacity: 1;
