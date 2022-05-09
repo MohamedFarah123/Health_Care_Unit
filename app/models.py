@@ -1,6 +1,5 @@
 from app.extensions import db
 from app import app
-import jwt
 from flask_login import UserMixin, login_manager
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from sqlalchemy.sql import func

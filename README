@@ -1,2 +1,8 @@
-This is an alternative to the video presentation:
+Welcome to my health management system!
 
+To run the program, please follow the following instructions:
+
+(Terminal)
+
+1. Locate into the folder -  cd HMS
+2. Create a virtual environment - For example ( python3 -m venv myproject)
