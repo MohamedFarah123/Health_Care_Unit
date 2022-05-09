@@ -143,7 +143,7 @@ def appointment():
                             doctor_name=doctor_names)
 
         SUBJECT = "Appointment Confirmation!"
-        body = "We are very happy to confirm that,\n" + first_name + " " + second_name + "has booked an appointment on" + date + " at " + slot_time + "with " + doctor_names
+        body = "We are very happy to confirm that,\n" + first_name + " " + second_name + " " + "has booked an appointment on" + " "+ date + " at " + slot_time + " " + "with " + " " + doctor_names
         message = f'Subject: {SUBJECT}\n\n{body}'
         server = smtplib.SMTP("smtp.gmail.com", 587)
         server.starttls()
