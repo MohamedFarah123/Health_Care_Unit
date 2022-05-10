@@ -67,6 +67,7 @@ def register():
         name = request.form.get('name')
         email = request.form.get('email')
         birthday = request.form.get('birthday')
+        address = request.form.get('address')
         number = request.form.get('number')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
@@ -81,7 +82,7 @@ def register():
         elif len(password1) < 6:
             flash('Password is too short.', category='error')
         else:
-            new_user = User(name=name, email=email, number=number, birthday=birthday,
+            new_user = User(name=name, email=email, number=number, address=address, birthday=birthday,
                             password=generate_password_hash(password1, method='sha256'))
             db.session.add(new_user)
             db.session.commit()
