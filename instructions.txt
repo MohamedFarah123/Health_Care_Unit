@@ -1,0 +1,19 @@
+Welcome to my health management system!
+
+How to run:
+
+1. cd into the downloaded folder. 
+2. Create a virtual environment - "python3 -m venv myproject"
+3. Activate virtual environment -  "source venv/bin/activate"
+4. Install requirements- "pip install -r requirements.txt"
+5. Export app - "export FLASK_APP=app"
+6. Turn on development - "export FLASK_ENV=development"
+7. Run program - "python3 main.py"
+
+The website should now be able to view on your browser.
+
+
+Admin login details:
+
+Email = admin123@management.com
+password = admin123
